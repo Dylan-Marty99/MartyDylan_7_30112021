@@ -1,18 +1,3 @@
-// const mysql = require("mysql")
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   database: "Groupomania",
-// });
-
-// connection.query(
-//   'SELECT * FROM `user` WHERE `prenom` = "Claude"',
-//   function (err, results, fields) {
-//     console.log(results);
-//     console.log(fields);
-//   }
-// );
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -20,11 +5,11 @@ const rateLimit = require("express-rate-limit");
 const path = require("path");
 
 const app = express();
+const { Sequelize } = require("sequelize");
 
 //------- Importation des routes ---------
 const postRoutes = require("./routes/post");
 const userRoutes = require("./routes/user");
-
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -36,6 +21,22 @@ const limiter = rateLimit({
 app.use(helmet());
 
 app.use(limiter);
+
+// Connection à MYSQL
+const sequelize = new Sequelize("groupomania_db", "root", "MotDePasseMYSQL00", {
+  dialect: "mysql",
+  host: "localhost",
+});
+
+try {
+  sequelize.authenticate();
+  console.log("Connecté à la base de données MySQL!");
+  sequelize.query("SELECT * FROM user").then(([results, metadata]) => {
+    console.log(results);
+  });
+} catch (error) {
+  console.error("Impossible de se connecter, erreur suivante :", error);
+}
 
 //----------- Gestion des erreurs CORS ----------------
 app.use((req, res, next) => {
