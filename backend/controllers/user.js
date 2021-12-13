@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const sequelize = require("../dbConfig");
 
 const User = require("../models/user");
 
@@ -8,14 +9,21 @@ exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
-      const user = new User({
-        email: req.body.email,
-        password: hash,
-      });
-      user
-        .save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) => res.status(400).json({ error }));
+      const nom = req.body.nom;
+      const prenom = req.body.prenom;
+      const pseudo = req.body.pseudo;
+      const email = req.body.email;
+      const password = hash;
+
+      sequelize.query(
+        `INSERT INTO user (u_nom, u_prenom, u_pseudo, u_email, u_password) VALUES ('${nom}', '${prenom}', '${pseudo}', '${email}', '${password}')`,
+        function (err, result) {
+          if (err) {
+            return res.status(500).json(err.message);
+          }
+          res.status(201).json({ message: "Utilisateur crée !" });
+        }
+      );
     })
     .catch((error) => res.status(500).json({ error }));
 };
