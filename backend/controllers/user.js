@@ -2,8 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sequelize = require("../dbConfig");
 
-const User = require("../models/user");
-
 //---------- Inscription de l'utlisateur -------------
 exports.signup = (req, res, next) => {
   bcrypt
@@ -30,25 +28,63 @@ exports.signup = (req, res, next) => {
 
 //---------- Connexion de l'utlisateur -------------
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  sequelize.query(
+    `SELECT u_id FROM user WHERE u_email = '${email}'`,
+    function (err, result) {
+      if (err) {
+        return res.status(500).json(err.message);
+      }
+      if (result.length == 0) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
       bcrypt
-        .compare(req.body.password, user.password)
+        .compare(password, result[0].password)
         .then((valid) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
           res.status(200).json({
-            userId: user._id,
-            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
-              expiresIn: "12h",
+            token: jwt.sign({ u_id: result[0].u_id }, "RANDOM_TOKEN_SECRET", {
+              expiresIn: "24h",
             }),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
+        .catch((e) => res.status(500).json(e));
+    }
+  );
 };
+
+// --------- Sélectionner un utilisateur (BUG) -----------
+exports.getOneUser = (req, res, next) => {
+  sequelize.query(
+    "SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_id = ?",
+    req.params.u_id,
+    (error, result) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      return res.status(200).json(result);
+    }
+  );
+};
+
+// --------- Sélectionner tous les utilisateurs -----------
+exports.getAllUsers = (req, res, next) => {
+  sequelize.query(
+    "SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_admin = 0",
+    function (error, result) {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      return res.status(200).json(result);
+    }
+  );
+};
+
+// ----------- Supprimer un utilisateur ---------------
+
+
+// ----------- Modifier un utilisateur ----------------

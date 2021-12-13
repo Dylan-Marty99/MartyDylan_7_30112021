@@ -4,8 +4,8 @@ module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-    const userId = decodedToken.userId;
-    if (req.body.userId && req.body.userId !== userId) {
+    const u_id = decodedToken.u_id;
+    if (req.body.u_id && req.body.u_id !== u_id) {
       throw "403: unauthorized request.";
     } else {
       next();
