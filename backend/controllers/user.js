@@ -59,9 +59,10 @@ exports.login = (req, res, next) => {
 
 // --------- Sélectionner un utilisateur (BUG) -----------
 exports.getOneUser = (req, res, next) => {
+  // ------------ req.body.u_id et req.params.u_id ne fonctionnent pas ---------------
+  const u_id = req.body.u_id;
   sequelize.query(
-    "SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_id = ?",
-    req.params.u_id,
+    `SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_id = ${u_id}`,
     (error, result) => {
       if (error) {
         return res.status(400).json(error);
@@ -84,7 +85,21 @@ exports.getAllUsers = (req, res, next) => {
   );
 };
 
-// ----------- Supprimer un utilisateur ---------------
-
-
 // ----------- Modifier un utilisateur ----------------
+
+
+
+// ----------- Supprimer un utilisateur (à tester) ---------------
+exports.deleteUser = (req, res, next) => {
+  const u_id = req.body.u_id;
+  sequelize.query(`DELETE FROM user WHERE u_id = ${u_id}`, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(400).json(error);
+    }
+    console.log("Le compte a bien été supprimé !");
+    return res
+      .status(200)
+      .json({ message: "Votre compte a bien été supprimé !" });
+  });
+};
