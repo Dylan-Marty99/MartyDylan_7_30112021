@@ -74,7 +74,7 @@ CREATE TABLE `user` (
   `u_date_registered` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `email` (`u_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +83,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'nom1','prenom1','pseudo1','email1@mail.com','password1',NULL,NULL,0,'2021-12-07 08:39:23'),(2,'nom2','prenom2','pseudo2','email2@mail.com','password2',NULL,NULL,0,'2021-12-07 08:40:05'),(3,'nom3','prenom3','pseudo3','email3@mail.com','password3','bio3',NULL,0,'2021-12-07 08:41:07');
+INSERT INTO `user` VALUES (1,'nom1','prenom1','pseudo1','email1@mail.com','password1',NULL,NULL,0,'2021-12-07 08:39:23'),(2,'nom2','prenom2','pseudo2','email2@mail.com','password2',NULL,NULL,0,'2021-12-07 08:40:05'),(3,'nom3','prenom3','pseudo3','email3@mail.com','password3','bio3',NULL,0,'2021-12-07 08:41:07'),(4,'Nom4','Prenom4','Pseudo4','email4@test.com','$2b$10$necHMyoZNJLS/sJBaoRHjO5yhnUVFvUyAK11DSuyzSKYRuJEU9/iK',NULL,NULL,0,'2021-12-13 07:41:21'),(5,'Nom5','Prenom5','Pseudo5','email5@test.com','$2b$10$6iqM3MNnauCAYC4mbGPBjO1OdG380kuPuAj.l0q/Xk7NBqns2CR7C',NULL,NULL,0,'2021-12-13 09:58:49');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -96,4 +96,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-07  8:59:32
+-- Dump completed on 2021-12-14  7:29:20
