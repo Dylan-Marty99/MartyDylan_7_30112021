@@ -1,0 +1,56 @@
+.connection-form {
+    background: rgb(255, 155, 144);
+    width: 50%;
+    border-radius: 20px;
+
+    ul {
+        display: flex;
+        justify-content: center;
+    }
+
+    li {
+         margin: 20px 30px 40px;
+         padding: 10px 20px;
+         background: rgb(216, 65, 95);
+         border-radius: 20px;
+         cursor: pointer;
+    }
+    .active-btn {
+        color: white;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    label {
+        margin: auto;
+        font-size: 1.2rem;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 80%;
+        margin: 10px auto 30px;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        border-radius: 10px;
+    }
+
+    input[type="submit"] {
+        width: 30%;
+        background: rgb(243, 114, 99);
+        margin: 20px auto;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    input[type="submit"]:hover {
+        filter: brightness(90%);
+        transform: translateX(5px);
+    }
+}

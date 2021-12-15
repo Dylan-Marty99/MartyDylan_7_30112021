@@ -12,7 +12,7 @@ exports.createPost = (req, res, next) => {
 
   console.log(imageUrl);
   console.log(req.file.filename);
-//                                                                            ----- const p_parent ? -----
+                                                                              /*----- const p_parent ? -----*/
   sequelize.query(
     `INSERT INTO post (p_parent, p_user_id, p_title, p_content, p_image_url) VALUES ('${p_parent}', '${u_id}', '${title}', '${content}', '${imageUrl}')`,
     function (err, result) {
