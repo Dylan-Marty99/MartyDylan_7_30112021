@@ -20,6 +20,7 @@ exports.signup = (req, res, next) => {
             return res.status(500).json(err.message);
           }
           res.status(201).json({ message: "Utilisateur crée !" });
+          // return result pour réponse
         }
       );
     })
@@ -51,6 +52,7 @@ exports.login = (req, res, next) => {
               expiresIn: "24h",
             }),
           });
+           // return result pour réponse
         })
         .catch((e) => res.status(500).json(e));
     }
@@ -80,6 +82,7 @@ exports.getAllUsers = (req, res, next) => {
       if (error) {
         return res.status(400).json(error);
       }
+      //------ Bug ----
       return res.status(200).json(result);
     }
   );

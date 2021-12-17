@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import axios from "axios";
+import axios from "axios";
 
 const RegisterForm = () => {
     const [nom, setNom] = useState("");
@@ -9,7 +9,42 @@ const RegisterForm = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
   
-    const handleRegister = (e) => {};
+    const handleRegister = (e) => {
+        e.preventDefault();
+
+        const nomError = document.querySelector(".nom.error");
+        const prenomError = document.querySelector(".prenom.error");
+        const pseudoError = document.querySelector(".pseudo.error");
+        const emailError = document.querySelector(".email.error");
+        const passwordError = document.querySelector(".password.error");
+        const confirmPasswordError = document.querySelector(".confirm-password.error");
+    
+        axios({
+          method: "post",
+          url: "http://localhost:3001/api/auth/signup",
+          withCredentials: true,
+          data: {
+            email,
+            password,
+          },
+        })
+          .then((res) => {
+            if (res.data.errors) {
+              // À modif avec regex et message perso
+              nomError.innerHTML = res.data.errors.nom;
+              prenomError.innerHTML = res.data.errors.prenom;
+              pseudoError.innerHTML = res.data.errors.pseudo;
+              emailError.innerHTML = res.data.errors.email;
+              passwordError.innerHTML = res.data.errors.password;
+              confirmPasswordError.innerHTML = res.data.errors.confirmPassword;
+            } else {
+              window.location = "/";
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
 
     return (
         <form action="" onSubmit={handleRegister} id="register-form">
@@ -21,6 +56,7 @@ const RegisterForm = () => {
           onChange={(e) => setNom(e.target.value)}
           value={nom}
         />
+        <div className="nom error"></div>
         <label htmlFor="prenom">Prénom</label>
         <input
           type="text"
@@ -29,6 +65,7 @@ const RegisterForm = () => {
           onChange={(e) => setPrenom(e.target.value)}
           value={prenom}
         />
+        <div className="prenom error"></div>
         <label htmlFor="pseudo">Pseudo</label>
         <input
           type="text"
@@ -37,6 +74,7 @@ const RegisterForm = () => {
           onChange={(e) => setPseudo(e.target.value)}
           value={pseudo}
         />
+        <div className="pseudo error"></div>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -45,6 +83,7 @@ const RegisterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
+        <div className="email error"></div>
         <label htmlFor="password">Mot de passe</label>
         <input
           type="password"
@@ -53,7 +92,8 @@ const RegisterForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <label htmlFor="confirm-password">Confirmer votre mot de passe</label>
+        <div className="password error"></div>
+        <label htmlFor="confirm-password">Confirmation du mot de passe</label>
         <input
           type="password"
           name="confirm-password"
@@ -61,6 +101,7 @@ const RegisterForm = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
+        <div className="confrim-password error"></div>
         <input type="submit" value="S'inscrire" />
       </form>
     );

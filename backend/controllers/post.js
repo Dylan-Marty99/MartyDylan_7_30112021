@@ -20,6 +20,7 @@ exports.createPost = (req, res, next) => {
         return res.status(500).json(err.message);
       }
       res.status(201).json({ message: "Post créé !" });
+      // return result pour réponse
     }
   );
 };
@@ -28,11 +29,50 @@ exports.createPost = (req, res, next) => {
 
 
 
+
 // ----------- Supprimer un post ----------------
+exports.deletePost = (req, res, next) => {
+  const p_id = req.params.p_id;
 
+  sequelize.query(
+    `SELECT p_image_url FROM post WHERE p_id = ${p_id}`,
+    function (err, result) {
+      if (result > 0) {
+        // On supprime le fichier image en amont
 
+        const filename = result[0].p_image_url.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
 
-// --------- Accès à un ou plusieurs posts ne fonctionne pas, possible erreur du middleware auth ? ----------------
+          sequelize.query(
+            `DELETE FROM post WHERE p_id = ${p_id}`,
+            function (err, result) {
+              if (err) {
+                return res.status(500).json(err.message);
+              }
+              res.status(200).json({ message: "Post supprimé !" });
+              // return result pour réponse
+            }
+          );
+        });
+      } else {
+        sequelize.query(
+          `DELETE FROM post WHERE p_id = ${p_id}`,
+          function (err, result) {
+            if (err) {
+              return res.status(500).json(err.message);
+            }
+            res.status(200).json({ message: "Post supprimé !" });
+            // return result pour réponse
+          }
+        );
+      }
+      if (err) {
+        return res.status(500).json(err.message);
+      }
+    }
+  );
+};
+
 
 // ----------- Accéder à un post ----------------
 exports.getOnePost = (req, res, next) => {
