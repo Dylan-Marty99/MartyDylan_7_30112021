@@ -1,0 +1,25 @@
+.left-nav-container {
+  position: relative;
+
+  .icons {
+    position: fixed;
+    z-index: 10;
+    margin: 30px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      transition: 0.1s;
+      margin: 10px 0 30px;
+      font-size: 2.5rem;
+      color: rgb(247, 154, 144);
+
+      &:hover {
+        transform: scale(1.1);
+        filter: brightness(90%);
+      }
+    }
+  }
+}
