@@ -1,0 +1,16 @@
+.connection-page {
+    .log-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 150px 0;
+    }
+
+    .img-container {
+        width: 35%;
+        display: flex;
+        align-items: center;
+        & img {
+            width: 100%;
+        }
+    }
+}

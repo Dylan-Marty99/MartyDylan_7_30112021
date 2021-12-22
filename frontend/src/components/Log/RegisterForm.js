@@ -18,12 +18,17 @@ const RegisterForm = () => {
         const emailError = document.querySelector(".email.error");
         const passwordError = document.querySelector(".password.error");
         const confirmPasswordError = document.querySelector(".confirm-password.error");
-    
+    // nomError.innerHTML = ""    lors renvoi from pour enlever erreur messaeg
+      // if (nom < 3 || regex) {nomError.innerHTML = "erreur de nom"}
+
         axios({
           method: "post",
           url: "http://localhost:3001/api/auth/signup",
           withCredentials: true,
           data: {
+            nom,
+            prenom,
+            pseudo,
             email,
             password,
           },
