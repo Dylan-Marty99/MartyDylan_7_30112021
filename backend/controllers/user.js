@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const sequelize = require("../dbConfig");
+const connection = require("../dbConfig");
 
-//---------- Inscription de l'utlisateur -------------
+//---------- Inscription de l'utlisateur (FONCTIONNE) -------------
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -13,26 +13,25 @@ exports.signup = (req, res, next) => {
       const email = req.body.email;
       const password = hash;
 
-      sequelize.query(
+      connection.query(
         `INSERT INTO user (u_nom, u_prenom, u_pseudo, u_email, u_password) VALUES ('${nom}', '${prenom}', '${pseudo}', '${email}', '${password}')`,
         function (err, result) {
           if (err) {
             return res.status(500).json(err.message);
           }
           res.status(201).json({ message: "Utilisateur crée !" });
-          // return result pour réponse
         }
       );
     })
     .catch((error) => res.status(500).json({ error }));
 };
 
-//---------- Connexion de l'utlisateur -------------
+//---------- Connexion de l'utlisateur (BUG error 500) -------------
 exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  sequelize.query(
+  connection.query(
     `SELECT u_id FROM user WHERE u_email = '${email}'`,
     function (err, result) {
       if (err) {
@@ -52,18 +51,17 @@ exports.login = (req, res, next) => {
               expiresIn: "24h",
             }),
           });
-           // return result pour réponse
+          return res.status(200).json(result);
         })
         .catch((e) => res.status(500).json(e));
     }
   );
 };
 
-// --------- Sélectionner un utilisateur (BUG) -----------
+// --------- Sélectionner un utilisateur (FONCTIONNE) -----------
 exports.getOneUser = (req, res, next) => {
-  // ------------ req.body.u_id et req.params.u_id ne fonctionnent pas ---------------
-  const u_id = req.body.u_id;
-  sequelize.query(
+  const u_id = req.params.id;
+  connection.query(
     `SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_id = ${u_id}`,
     (error, result) => {
       if (error) {
@@ -74,15 +72,14 @@ exports.getOneUser = (req, res, next) => {
   );
 };
 
-// --------- Sélectionner tous les utilisateurs -----------
+// --------- Sélectionner tous les utilisateurs (FONCTIONNE)  -----------
 exports.getAllUsers = (req, res, next) => {
-  sequelize.query(
+  connection.query(
     "SELECT u_id, u_nom, u_prenom, u_pseudo, u_email FROM user WHERE u_admin = 0",
     function (error, result) {
       if (error) {
         return res.status(400).json(error);
       }
-      //------ Bug ----
       return res.status(200).json(result);
     }
   );
@@ -90,12 +87,10 @@ exports.getAllUsers = (req, res, next) => {
 
 // ----------- Modifier un utilisateur ----------------
 
-
-
-// ----------- Supprimer un utilisateur (à tester) ---------------
+// ----------- Supprimer un utilisateur (FONCTIONNE) ---------------
 exports.deleteUser = (req, res, next) => {
-  const u_id = req.body.u_id;
-  sequelize.query(`DELETE FROM user WHERE u_id = ${u_id}`, (error, result) => {
+  const u_id = req.params.id;
+  connection.query(`DELETE FROM user WHERE u_id = ${u_id}`, (error, result) => {
     if (error) {
       console.log(error);
       return res.status(400).json(error);

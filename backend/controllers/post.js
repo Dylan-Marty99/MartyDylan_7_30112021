@@ -1,40 +1,37 @@
-const sequelize = require("../dbConfig");
+const connection = require("../dbConfig");
 const fs = require("fs");
 
-// ----------- Créer un post (à tester une fois p_parent définis) ----------------
+// ----------- Créer un post (FONCTIONNE PAS) ----------------
 exports.createPost = (req, res, next) => {
   const u_id = res.locals.u_id;
   const title = req.body.title;
   const content = req.body.content;
+  const parent = req.body.parent;
   const imageUrl = `${req.protocol}://${req.get("host")}/images/${
     req.file.filename
   }`;
 
   console.log(imageUrl);
   console.log(req.file.filename);
-                                                                              /*----- const p_parent ? -----*/
-  sequelize.query(
-    `INSERT INTO post (p_parent, p_user_id, p_title, p_content, p_image_url) VALUES ('${p_parent}', '${u_id}', '${title}', '${content}', '${imageUrl}')`,
+
+  connection.query(
+    `INSERT INTO post (p_parent, p_user_id, p_title, p_content, p_image_url) VALUES ('${parent}', '${u_id}', '${title}', '${content}', '${imageUrl}')`,
     function (err, result) {
       if (err) {
         return res.status(500).json(err.message);
       }
       res.status(201).json({ message: "Post créé !" });
-      // return result pour réponse
     }
   );
 };
 
 // ----------- Modifier un post ----------------
 
-
-
-
-// ----------- Supprimer un post ----------------
+// ----------- Supprimer un post (à tester) ----------------
 exports.deletePost = (req, res, next) => {
   const p_id = req.params.p_id;
 
-  sequelize.query(
+  connection.query(
     `SELECT p_image_url FROM post WHERE p_id = ${p_id}`,
     function (err, result) {
       if (result > 0) {
@@ -42,27 +39,24 @@ exports.deletePost = (req, res, next) => {
 
         const filename = result[0].p_image_url.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-
-          sequelize.query(
+          connection.query(
             `DELETE FROM post WHERE p_id = ${p_id}`,
             function (err, result) {
               if (err) {
                 return res.status(500).json(err.message);
               }
               res.status(200).json({ message: "Post supprimé !" });
-              // return result pour réponse
             }
           );
         });
       } else {
-        sequelize.query(
+        connection.query(
           `DELETE FROM post WHERE p_id = ${p_id}`,
           function (err, result) {
             if (err) {
               return res.status(500).json(err.message);
             }
             res.status(200).json({ message: "Post supprimé !" });
-            // return result pour réponse
           }
         );
       }
@@ -73,11 +67,10 @@ exports.deletePost = (req, res, next) => {
   );
 };
 
-
-// ----------- Accéder à un post ----------------
+// ----------- Accéder à un post (FONCTIONNE) ----------------
 exports.getOnePost = (req, res, next) => {
-  const p_id = req.params.p_id;
-  sequelize.query(
+  const p_id = req.params.id;
+  connection.query(
     `SELECT * FROM post WHERE p_id = ${p_id}`,
     (error, result) => {
       if (error) {
@@ -89,9 +82,9 @@ exports.getOnePost = (req, res, next) => {
   );
 };
 
-// ----------- Accéder à tout les posts ----------------
+// ----------- Accéder à tout les posts (FONCTIONNE) ----------------
 exports.getAllPosts = (req, res, next) => {
-  sequelize.query(
+  connection.query(
     "SELECT * FROM post ORDER BY p_date_published DESC",
     (error, result) => {
       if (error) {
@@ -102,61 +95,3 @@ exports.getAllPosts = (req, res, next) => {
     }
   );
 };
-
-// --------------------------------------------------------------------------------------------------------------
-// ---------------------------------- À adapter si le temps le permet -------------------------------------------
-// --------------------------------------------------------------------------------------------------------------
-
-// ----------- Liker un post ----------------
-// exports.likeSauce = (req, res, next) => {
-//   switch (req.body.like) {
-//     //--- Vérifier si l'utilisateur à liker le post ------
-//     case 0:
-//       Sauces.findOne({ _id: req.params.id })
-//         .then((sauces) => {
-//           if (sauces.usersLiked.find((user) => user === req.body.userId)) {
-//             Sauces.updateOne(
-//               { _id: req.params.id },
-//               {
-//                 $inc: { likes: -1 },
-//                 $pull: { usersLiked: req.body.userId },
-//                 _id: req.params.id,
-//               }
-//             )
-//               .then(() => {
-//                 res
-//                   .status(201)
-//                   .json({ message: "Le nouvel avis a été pris en compte!" });
-//               })
-//               .catch((error) => {
-//                 res.status(400).json({ error: error });
-//               });
-//           }
-//         })
-//         .catch((error) => {
-//           res.status(404).json({ error: error });
-//         });
-//       break;
-
-//---------- Like du post ----------
-//     case 1:
-//       Sauces.updateOne(
-//         { _id: req.params.id },
-//         {
-//           $inc: { likes: 1 },
-//           $push: { usersLiked: req.body.userId },
-//           _id: req.params.id,
-//         }
-//       )
-//         .then(() => {
-//           res.status(201).json({ message: "Like bien pris en compte!" });
-//         })
-//         .catch((error) => {
-//           res.status(400).json({ error: error });
-//         });
-//       break;
-
-//     default:
-//       console.error("Mauvaise requête");
-//   }
-// };

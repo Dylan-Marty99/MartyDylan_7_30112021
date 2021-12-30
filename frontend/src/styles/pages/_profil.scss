@@ -1,3 +1,45 @@
 .profil-page {
-   background: lightcyan;
+   text-align: center;
+
+   h1 {
+      margin: 20px 0;
+   }
+
+   .profil-container {
+      background: rgb(247, 154, 144);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px auto;
+      width: 60%;
+      
+   }
+
+   h2 {
+      margin-bottom: 12px;
+    }
+    p,
+    textarea {
+      min-height: 80px;
+      border: 1px solid rgb(156, 74, 74);
+      border-radius: 20px 20px 6px 20px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+    }
+    textarea {
+      width: 100%;
+      margin-bottom: -6px;
+      font-size: 1.2rem;
+    }
+    button {
+      margin: 5px 0;
+      background-color: rgb(255, 130, 116);
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      border-radius: 20px 6px 20px 20px;
+      float: right;
+    }
 }
