@@ -1,7 +1,7 @@
 import React, { useEffect, useState }  from "react";
 import Routes from "./components/Routes";
 import { AuthContext } from "./components/AppContext";
-import axios from "axios";
+// import axios from "axios";
 
 const App = () => {
 

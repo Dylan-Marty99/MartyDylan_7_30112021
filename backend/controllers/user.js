@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
   const password = req.body.password;
 
   connection.query(
-    `SELECT u_id FROM user WHERE u_email = '${email}'`,
+    `SELECT * FROM user WHERE u_email = '${email}'`,
     function (err, result) {
       if (err) {
         return res.status(500).json(err.message);
@@ -85,8 +85,6 @@ exports.getAllUsers = (req, res, next) => {
   );
 };
 
-// ----------- Modifier un utilisateur ----------------
-
 // ----------- Supprimer un utilisateur (FONCTIONNE) ---------------
 exports.deleteUser = (req, res, next) => {
   const u_id = req.params.id;
@@ -101,3 +99,5 @@ exports.deleteUser = (req, res, next) => {
       .json({ message: "Votre compte a bien été supprimé !" });
   });
 };
+
+// ----------- Modifier un utilisateur ----------------

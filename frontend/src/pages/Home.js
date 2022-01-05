@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import LeftNavBar from "../components/LeftNavBar";
 
 const Home = () => {
-    return (
-        <div>
-            Acceuil
-        </div>
-    );
+  return (
+    <div className="profil-page">
+      <LeftNavBar />
+    </div>
+  );
 };
 
 export default Home;

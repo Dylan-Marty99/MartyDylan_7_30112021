@@ -25,9 +25,7 @@ exports.createPost = (req, res, next) => {
   );
 };
 
-// ----------- Modifier un post ----------------
-
-// ----------- Supprimer un post (à tester) ----------------
+// ----------- Supprimer un post (à tester ) ----------------
 exports.deletePost = (req, res, next) => {
   const p_id = req.params.p_id;
 
@@ -95,3 +93,5 @@ exports.getAllPosts = (req, res, next) => {
     }
   );
 };
+
+// ----------- Modifier un post ----------------
