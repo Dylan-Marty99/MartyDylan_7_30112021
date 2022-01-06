@@ -8,22 +8,55 @@
     .new-message {
         background: rgb(255, 189, 182);
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        margin-bottom: 50px;
     }
-    h2 {
 
-    }
     input {
-
+        width: 80%;
+        margin: 15px auto 15px 8%;
+        height: 70px;
+        border-radius: 20px;
+        padding-left: 10px;
+        font-size: 1.2rem;
     }
     button {
-        
+        width: 20%;
+        margin-left: 60%;
+        padding: 5px 15px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 3px black;
+        background-color: burlywood;
+        cursor: pointer;
+        transition: 0.2s;
     }
-
-    .all-post {
-        background-color: chartreuse;
-    }
+    button:hover {
+        filter: brightness(90%);
+      }
 
     .post {
         background-color: cyan;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+    }
+
+    .post-title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .user-name {
+        font-size: .8rem;
+        color: gray;
+        padding-left: 10px;
+    }
+
+    .content {
+        margin: 20px 0;
     }
 }
