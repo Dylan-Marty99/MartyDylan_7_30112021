@@ -10,6 +10,9 @@
         @include large-smartphone {
             margin: 0 auto 0 30%;
         }
+        @include smartphone {
+            margin: 0 auto 0 18%;
+        }
     }
 
     img {

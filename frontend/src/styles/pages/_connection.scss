@@ -3,6 +3,9 @@
         display: flex;
         justify-content: space-around;
         margin: 150px 0;
+        @include large-smartphone {
+            margin-top: 80px;
+        }
     }
 
     .img-container {
@@ -11,6 +14,9 @@
         align-items: center;
         & img {
             width: 100%;
+        }
+        @include large-smartphone {
+            display: none;
         }
     }
 }
