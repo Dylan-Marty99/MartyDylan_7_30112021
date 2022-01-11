@@ -1,3 +1,10 @@
+$breakpoints: (
+    litle-smartphone: 350px,
+    smartphone: 500px,
+    large-smartphone: 800px,
+    tablet: 1024px,
+);
+
 * {
     margin: 0;
     padding: 0;
@@ -11,4 +18,28 @@
 .error {
     color: rgb(230, 1, 1);
     font-size: 1.1rem;
+}
+
+/*---------Mixins media queries-------------*/
+
+@mixin litle-smartphone {
+    @media screen and (max-width: map-get($breakpoints, litle-smartphone )) {
+        @content;
+    }
+}
+@mixin smartphone {
+    @media screen and (max-width: map-get($breakpoints, smartphone )) {
+        @content;
+    }
+}
+@mixin large-smartphone {
+    @media screen and (max-width: map-get($breakpoints, large-smartphone )) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width: map-get($breakpoints, tablet )) {
+        @content;
+    }
 }

@@ -11,12 +11,20 @@
     li {
          margin: 20px 30px 10px;
          padding: 10px 20px;
-         background: rgb(216, 65, 95);
+         background: rgb(98, 201, 214);
          border-radius: 20px;
+         box-shadow: 2px 2px 2px rgb(14, 14, 14);
          cursor: pointer;
+         transition: .2s;
     }
+
+    li:hover {
+        background:rgb(95, 169, 179);
+    }
+
     .active-btn {
         color: white;
+        transform: scale(1.2);
     }
 
     form {
@@ -42,17 +50,18 @@
 
     input[type="submit"] {
         width: 30%;
-        background: rgb(243, 114, 99);
+        background: rgb(98, 201, 214);
         margin: 20px auto;
         padding: 10px 15px;
         border-radius: 20px;
+        box-shadow: 2px 2px 2px rgb(14, 14, 14);
         font-size: 1.3rem;
         cursor: pointer;
         transition: .2s;
     }
 
     input[type="submit"]:hover {
-        filter: brightness(90%);
+        filter: brightness(110%);
         transform: translateX(5px);
     }
 }

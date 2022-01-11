@@ -3,6 +3,9 @@
     .message-container {
         width: 60%;
         margin: 40px auto;
+        @include large-smartphone {
+            width: 70%;
+        }
     }
 
     .new-message {
@@ -23,26 +26,29 @@
         font-size: 1.2rem;
     }
     button {
-        width: 20%;
+        width: 25%;
         margin-left: 60%;
         padding: 5px 15px;
         font-size: 1rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 3px black;
-        background-color: burlywood;
+        background-color: rgb(98, 201, 214);
         cursor: pointer;
         transition: 0.2s;
+        @include large-smartphone {
+            width: 35%;
+        }
     }
     button:hover {
-        filter: brightness(90%);
+        filter: brightness(110%);
       }
 
     .post {
-        background-color: cyan;
         padding: 20px;
         margin-bottom: 20px;
         border-radius: 20px;
+        border: 5px solid rgb(255, 221, 217);
     }
 
     .post-title {
@@ -58,5 +64,15 @@
 
     .content {
         margin: 20px 0;
+    }
+    
+    img {
+        width: 80%;
+        height: 300px;
+        margin: 10px 10% 0;
+
+        @include large-smartphone {
+            height: 200px;
+        }
     }
 }

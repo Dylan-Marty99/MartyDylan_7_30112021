@@ -26,11 +26,11 @@
     border: none;
     border-radius: 10px;
     box-shadow: 1px 1px 3px black;
-    background-color: burlywood;
+    background-color: rgb(98, 201, 214);
     cursor: pointer;
     transition: 0.2s;
   }
   button:hover {
-    filter: brightness(90%);
+    filter: brightness(110%);
   }
 }

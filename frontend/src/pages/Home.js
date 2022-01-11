@@ -29,8 +29,7 @@ const Home = () => {
               vitae beatae nisi architecto. Accusamus consequatur doloremque
               incidunt quasi nulla repellat atque.
             </p>
-            <p>"image"</p>
-            <img src="" alt="" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ_G9U9095poYEIvtg8fnA2Ef3dcjLEebptQ&usqp=CAU" alt="" />
           </div>
 
           <div className="post">
@@ -38,7 +37,7 @@ const Home = () => {
               <h2>"Titre du post"</h2>
               <span>"date du post"</span>
             </div>
-            <span className="user-name">"Nom de l'utilisateur"</span>
+            <span className="user-name">Par "Nom de l'utilisateur"</span>
             <p className="content">
               "Contenu du post" Lorem ipsum dolor sit amet consectetur
               adipisicing elit. Ea explicabo ipsa totam autem, perspiciatis rem
@@ -49,8 +48,6 @@ const Home = () => {
               perspiciatis maxime iste? Modi repudiandae veniam blanditiis iusto
               officia inventore perferendis, sit at.
             </p>
-            <p>"image"</p>
-            <img src="" alt="" />
           </div>
         </div>
       </div>
