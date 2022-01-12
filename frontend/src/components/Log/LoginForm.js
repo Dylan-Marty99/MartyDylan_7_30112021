@@ -19,14 +19,8 @@ const LoginForm = () => {
         password,
       },
     })
-      .then((res) => {
-        if (res.data.errors) {
-          // À modif avec regex et message perso
-          emailError.innerHTML = res.data.errors.email;
-          passwordError.innerHTML = res.data.errors.password;
-        } else {
-          window.location = "/";
-        }
+      .then(() => {
+        window.location = "/";
       })
       .catch((err) => {
         console.log(err);

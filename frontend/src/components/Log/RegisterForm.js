@@ -7,7 +7,6 @@ const RegisterForm = () => {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -17,11 +16,39 @@ const RegisterForm = () => {
     const pseudoError = document.querySelector(".pseudo.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
-    const confirmPasswordError = document.querySelector(".confirm-password.error");
 
     nomError.innerHTML = "";
-    if (nom < 3 || nom > 30) {
-      nomError.innerHTML = "erreur de nom";
+    if (nom.length < 3 || nom.length > 30 || !nom.match(/^[a-zA-Zéèç.'-]+$/)) {
+      nomError.innerHTML = "Nom invalide";
+    }
+
+    prenomError.innerHTML = "";
+    if (
+      prenom.length < 3 ||
+      prenom.length > 30 ||
+      !prenom.match(/^[a-zA-Zéèç.'-]+$/)
+    ) {
+      prenomError.innerHTML = "Prénom invalide";
+    }
+
+    pseudoError.innerHTML = "";
+    if (pseudo.length < 3 || pseudo.length > 30) {
+      pseudoError.innerHTML = "Pseudo invalide";
+    }
+
+    emailError.innerHTML = "";
+    if (!email.match(/^[\w._-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+      emailError.innerHTML = "Email invalide";
+    }
+
+    passwordError.innerHTML = "";
+    if (
+      !password.match(
+        /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
+      )
+    ) {
+      passwordError.innerHTML =
+        "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial";
     }
 
     axios({
@@ -35,18 +62,8 @@ const RegisterForm = () => {
         password,
       },
     })
-      .then((res) => {
-        if (res.data.errors) {
-          // À modif avec regex et message perso
-          nomError.innerHTML = res.data.errors.nom;
-          prenomError.innerHTML = res.data.errors.prenom;
-          pseudoError.innerHTML = res.data.errors.pseudo;
-          emailError.innerHTML = res.data.errors.email;
-          passwordError.innerHTML = res.data.errors.password;
-          confirmPasswordError.innerHTML = res.data.errors.confirmPassword;
-        } else {
-          window.location = "/";
-        }
+      .then(() => {
+        window.location = "/";
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +79,7 @@ const RegisterForm = () => {
         id="nom"
         onChange={(e) => setNom(e.target.value)}
         value={nom}
+        autoComplete="off"
       />
       <div className="nom error"></div>
       <label htmlFor="prenom">Prénom</label>
@@ -71,6 +89,7 @@ const RegisterForm = () => {
         id="prenom"
         onChange={(e) => setPrenom(e.target.value)}
         value={prenom}
+        autoComplete="off"
       />
       <div className="prenom error"></div>
       <label htmlFor="pseudo">Pseudo</label>
@@ -80,6 +99,7 @@ const RegisterForm = () => {
         id="pseudo"
         onChange={(e) => setPseudo(e.target.value)}
         value={pseudo}
+        autoComplete="off"
       />
       <div className="pseudo error"></div>
       <label htmlFor="email">Email</label>
@@ -89,6 +109,7 @@ const RegisterForm = () => {
         id="email"
         onChange={(e) => setEmail(e.target.value)}
         value={email}
+        autoComplete="off"
       />
       <div className="email error"></div>
       <label htmlFor="password">Mot de passe</label>
@@ -100,15 +121,6 @@ const RegisterForm = () => {
         value={password}
       />
       <div className="password error"></div>
-      <label htmlFor="confirm-password">Confirmation du mot de passe</label>
-      <input
-        type="password"
-        name="confirm-password"
-        id="confirm-password"
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        value={confirmPassword}
-      />
-      <div className="confrim-password error"></div>
       <input type="submit" value="S'inscrire" />
     </form>
   );

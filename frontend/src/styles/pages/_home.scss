@@ -17,6 +17,11 @@
         margin-bottom: 50px;
     }
 
+    h2 {
+        @include smartphone {
+            font-size: 1.2rem;
+        }
+    }
     input {
         width: 80%;
         margin: 15px auto 15px 8%;
@@ -24,6 +29,10 @@
         border-radius: 20px;
         padding-left: 10px;
         font-size: 1.2rem;
+        @include smartphone {
+            font-size: 1rem;
+            width: 85%;
+        }
     }
     button {
         width: 25%;
@@ -38,6 +47,10 @@
         transition: 0.2s;
         @include large-smartphone {
             width: 35%;
+        }
+        @include smartphone {
+            width: 45%;
+            margin-left: 45%;
         }
     }
     button:hover {
@@ -54,6 +67,15 @@
     .post-title {
         display: flex;
         justify-content: space-between;
+        @include smartphone {
+            flex-direction: column;
+        }
+
+        span {
+            @include smartphone {
+                padding-left: 10px;
+            }
+        }
     }
 
     .user-name {
@@ -64,15 +86,22 @@
 
     .content {
         margin: 20px 0;
+        @include smartphone {
+            font-size: .9rem;
+        }
     }
     
     img {
         width: 80%;
         height: 300px;
         margin: 10px 10% 0;
-
         @include large-smartphone {
             height: 200px;
+        }
+        @include smartphone {
+            height: 150px;
+            margin: 10px 5% 0;
+            width: 90%;
         }
     }
 }

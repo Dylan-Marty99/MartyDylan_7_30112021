@@ -2,7 +2,6 @@ $breakpoints: (
     litle-smartphone: 350px,
     smartphone: 500px,
     large-smartphone: 800px,
-    tablet: 1024px,
 );
 
 * {
@@ -34,12 +33,6 @@ $breakpoints: (
 }
 @mixin large-smartphone {
     @media screen and (max-width: map-get($breakpoints, large-smartphone )) {
-        @content;
-    }
-}
-
-@mixin tablet {
-    @media screen and (max-width: map-get($breakpoints, tablet )) {
         @content;
     }
 }
