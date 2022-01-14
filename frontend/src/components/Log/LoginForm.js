@@ -19,8 +19,20 @@ const LoginForm = () => {
         password,
       },
     })
-      .then(() => {
-        window.location = "/";
+      .then((res) => {
+        if (email < 1) {
+          emailError.innerHTML = "Email incorrect";
+        }
+        if (password < 1) {
+          passwordError.innerHTML = "Mot de passe incorrect";
+        }
+
+        if (!emailError && !passwordError) {
+          console.log(res.data.token);
+          localStorage.setItem("token", res.data.token);
+
+          window.location = "/";
+        }
       })
       .catch((err) => {
         console.log(err);

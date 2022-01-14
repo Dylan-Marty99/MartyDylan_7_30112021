@@ -63,7 +63,9 @@ const RegisterForm = () => {
       },
     })
       .then(() => {
-        window.location = "/";
+        if (!nomError && !prenomError && !pseudoError && !emailError && !passwordError) {
+          window.location = "/";
+        }
       })
       .catch((err) => {
         console.log(err);

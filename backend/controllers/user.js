@@ -26,7 +26,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-//---------- Connexion de l'utlisateur (BUG error 500) -------------
+//---------- Connexion de l'utlisateur (FONCTIONNE) -------------
 exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
