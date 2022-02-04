@@ -51,25 +51,31 @@ const RegisterForm = () => {
         "Le mot de passe doit contenir au minimum 8 caractères, une majuscule, un chiffre et un caractère spécial";
     }
 
-    axios({
-      method: "post",
-      url: "http://localhost:3001/api/auth/signup",
-      data: {
-        nom,
-        prenom,
-        pseudo,
-        email,
-        password,
-      },
-    })
-      .then(() => {
-        if (!nomError && !prenomError && !pseudoError && !emailError && !passwordError) {
-          window.location = "/";
-        }
+    if (
+      !nomError &&
+      !prenomError &&
+      !pseudoError &&
+      !emailError &&
+      !passwordError
+    ) {
+      axios({
+        method: "post",
+        url: "http://localhost:3001/api/auth/signup",
+        data: {
+          nom,
+          prenom,
+          pseudo,
+          email,
+          password,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(() => {
+          window.location = "/";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
